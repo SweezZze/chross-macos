@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "Chross — Suivi du temps & Facturation",
+  "version": "1.1",
+  "description": "Contrôle tes sessions Chross, suis ton temps en direct et ajoute des sites web à ton chrono directement depuis Chrome.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Chross"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "alarms",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:52847/*"
+  ],
+  "commands": {
+    "toggle-pause": {
+      "suggested_key": {
+        "default": "Alt+Shift+P",
+        "mac": "Command+Shift+P"
+      },
+      "description": "Mettre en pause ou reprendre la session Chross"
+    },
+    "add-current-site": {
+      "suggested_key": {
+        "default": "Alt+Shift+A",
+        "mac": "Command+Shift+A"
+      },
+      "description": "Ajouter le site actuel à la session Chross"
+    }
+  }
+}

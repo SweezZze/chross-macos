@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chross</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <img src="icons/icon32.png" alt="Chross" class="brand-icon" />
+      <span class="brand-name">Chross</span>
+    </div>
+
+    <div class="header-right">
+      <span id="statusPill" class="status-pill status-offline">Déconnecté</span>
+      <button id="activateAppBtn" class="icon-btn" title="Ouvrir l'application Chross sur Mac">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Offline view -->
+  <section id="offlineView" class="card card-offline">
+    <div class="offline-icon">⚠️</div>
+    <h3>Chross n'est pas ouverte</h3>
+    <p class="hint">Lance l'application Chross sur ton Mac pour synchroniser tes sessions et suivre ton temps.</p>
+    <button id="retryBtn" class="btn btn-secondary">Réessayer la connexion</button>
+  </section>
+
+  <!-- Connected view -->
+  <main id="connectedView" hidden>
+    
+    <!-- Today's progress widget -->
+    <div class="today-bar">
+      <div class="today-info">
+        <span class="caption">Aujourd'hui</span>
+        <span id="todayHours" class="today-time">0h00</span>
+      </div>
+      <div class="progress-track">
+        <div id="todayProgressBar" class="progress-fill" style="width: 0%"></div>
+      </div>
+      <span id="todayGoal" class="caption-sub">Objectif 7h</span>
+    </div>
+
+    <!-- Active session view -->
+    <div id="runningSessionSection" hidden>
+      <div class="session-card">
+        <div class="session-meta">
+          <span class="caption">PROJET EN COURS</span>
+          <h2 id="runningProjectName" class="project-title">Session de travail</h2>
+        </div>
+
+        <div id="timer" class="timer-display">00:00:00</div>
+
+        <div class="session-controls">
+          <button id="pauseBtn" class="btn btn-secondary">
+            <span id="pauseIcon">⏸</span>
+            <span id="pauseLabel">Pause</span>
+          </button>
+          <button id="stopBtn" class="btn btn-danger">
+            <span>⏹</span>
+            <span>Terminer</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Idle / Start new session view -->
+    <div id="idleSessionSection" hidden>
+      <div class="session-card">
+        <span class="caption">NOUVELLE SESSION</span>
+        
+        <div class="form-group">
+          <label for="projectNameInput" class="input-label">Nom du projet</label>
+          <input 
+            type="text" 
+            id="projectNameInput" 
+            placeholder="Ex: Refonte client, Dev API..." 
+            autocomplete="off"
+          />
+        </div>
+
+        <div id="presetsGroup" class="form-group" hidden>
+          <label for="presetSelect" class="input-label">Ou démarrer depuis un projet</label>
+          <select id="presetSelect">
+            <option value="">Sélectionner un projet...</option>
+          </select>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="includeCurrentSiteCheck" checked />
+          <span>Inclure le site actuel d'office</span>
+        </label>
+
+        <button id="startBtn" class="btn btn-primary">
+          <span>▶</span>
+          <span>Démarrer la session</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Current Tab Inspection Card -->
+    <div class="card current-tab-card">
+      <div class="tab-header">
+        <span class="caption">ONGLET ACTUEL</span>
+        <span id="currentDomainBadge" class="domain-tag">—</span>
+      </div>
+
+      <div class="tab-action-row">
+        <div class="tab-details">
+          <span id="currentDomainTitle" class="domain-name">Chargement...</span>
+          <span id="currentDomainStatus" class="domain-substatus">Hors sélection</span>
+        </div>
+        <button id="toggleCurrentSiteBtn" class="btn btn-sm btn-accent" disabled>
+          + Ajouter
+        </button>
+      </div>
+    </div>
+
+    <!-- Declared Sites List -->
+    <div class="card sites-card">
+      <div class="card-header">
+        <span class="caption">SITES SUIVIS DANS LA SESSION</span>
+        <span id="sitesCount" class="badge-count">0</span>
+      </div>
+      <ul id="sitesList" class="sites-list"></ul>
+      <p id="sitesEmpty" class="hint empty-hint">Aucun site spécifique déclaré. Tous les sites sont comptabilisés.</p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>Raccourcis : <kbd>⌥⇧P</kbd> Pause · <kbd>⌥⇧A</kbd> Ajouter site</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
