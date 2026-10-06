@@ -97,6 +97,9 @@ final class SessionCoordinator {
     /// store and asks WidgetKit to refresh immediately, instead of waiting for its own
     /// periodic timeline — called on every start/stop so the widget stays live.
     func syncWidgetSnapshot(isRunning: Bool, currentSessionStart: Date?, modelContext: ModelContext) {
+        #if DEBUG
+        if DemoMode.isActive { return }  // never show demo numbers in the real widget
+        #endif
         let allSessions = (try? modelContext.fetch(FetchDescriptor<WorkSession>())) ?? []
         let todaySeconds = allSessions
             .filter { Calendar.current.isDateInToday($0.startDate) }

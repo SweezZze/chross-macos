@@ -462,3 +462,53 @@ final class ActivityTracker {
     }
 
 }
+
+#if DEBUG
+extension ActivityTracker {
+    /// README recordings only: turns the just-started session into a convincing one already in
+    /// progress — past usage, idle and out-of-scope time — then cycles through `script` instead of
+    /// following the real frontmost app.
+    func applyDemoState(
+        startedAgo: TimeInterval,
+        usage: [UsageRecord],
+        idleSeconds: TimeInterval,
+        outOfScopeSeconds: TimeInterval,
+        script: [TrackedItem],
+        secondsPerItem: TimeInterval = 3.5
+    ) {
+        guard isRunning else { return }
+        // Detach from the real world: no app switches, no idle detection, no browser reads.
+        if let activationObserver {
+            NSWorkspace.shared.notificationCenter.removeObserver(activationObserver)
+            self.activationObserver = nil
+        }
+        browserTask?.cancel()
+        browserTask = nil
+        idleThreshold = 0
+
+        let now = Date()
+        sessionStart = now.addingTimeInterval(-startedAgo)
+        idleAccumulated = idleSeconds
+        outOfScopeAccumulated = outOfScopeSeconds
+        usageByKey = Dictionary(uniqueKeysWithValues: usage.map { ($0.key, $0) })
+
+        Task { @MainActor [weak self] in
+            var index = 0
+            while let self, self.isRunning, !script.isEmpty {
+                let item = script[index % script.count]
+                let switchedAt = Date()
+                self.closeSegment(at: switchedAt)
+                self.segmentStart = switchedAt
+                self.segmentKey = item.key
+                self.segmentKind = item.kind
+                self.segmentDisplayName = item.displayName
+                self.currentKind = item.kind
+                self.currentDetail = item.displayName
+                self.currentAppName = item.displayName
+                index += 1
+                try? await Task.sleep(for: .seconds(secondsPerItem))
+            }
+        }
+    }
+}
+#endif

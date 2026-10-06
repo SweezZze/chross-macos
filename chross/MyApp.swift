@@ -12,6 +12,11 @@ struct MyApp: App {
     /// One container shared by every window, so the end-of-session window and the main
     /// window always see the same data immediately.
     private let modelContainer: ModelContainer = {
+        #if DEBUG
+        if DemoMode.isActive {
+            return DemoData.makeContainer()
+        }
+        #endif
         do {
             return try ModelContainer(for: WorkSession.self, Preset.self, FavoriteItem.self)
         } catch {

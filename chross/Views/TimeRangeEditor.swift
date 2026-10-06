@@ -76,6 +76,7 @@ struct TimeRangeEditor: View {
             .contentShape(Rectangle())
             .gesture(createPeriodGesture(width: width))
             .pointerStyle(.horizontalText)
+            .demoAnchor("editor.track")
     }
 
     /// Dashed outline of the times as recorded, so it's obvious what was changed.
@@ -213,6 +214,7 @@ struct TimeRangeEditor: View {
                 .offset(y: labelHeight - 3)
         }
         .frame(width: 22, height: labelHeight + trackHeight + 6, alignment: .top)
+        .demoAnchor(isStart ? "editor.start" : "editor.end")
         .contentShape(Rectangle())
         .pointerStyle(.columnResize)
         .gesture(

@@ -92,6 +92,7 @@ struct TimelineBar: View {
             .animation(.easeOut(duration: 0.12), value: hoveredID)
         }
         .frame(height: height)
+        .demoAnchor("timelineBar")
     }
 
     @ViewBuilder

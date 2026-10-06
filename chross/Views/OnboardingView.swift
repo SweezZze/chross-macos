@@ -224,6 +224,7 @@ struct OnboardingView: View {
             }
             .buttonStyle(.chross)
             .keyboardShortcut(.defaultAction)
+            .demoAnchor("onboarding.next")
         }
     }
 

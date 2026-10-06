@@ -104,6 +104,7 @@ struct SettingsView: View {
                     )
                 }
                 .buttonStyle(.chross)
+                .demoAnchor("settings.\(item)")
             }
             Spacer()
         }

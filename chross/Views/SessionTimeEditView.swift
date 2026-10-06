@@ -208,6 +208,7 @@ struct SessionTimeEditView: View {
             .buttonStyle(.chross)
             .disabled(!hasChanges || !isValid)
             .keyboardShortcut(.defaultAction)
+            .demoAnchor("editor.apply")
         }
     }
 

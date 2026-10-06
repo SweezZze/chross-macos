@@ -232,6 +232,7 @@ struct SessionSummaryView: View {
                 .background(Theme.surface, in: Circle())
                 .overlay(Circle().strokeBorder(Theme.border))
                 .help("Corriger les horaires")
+                .demoAnchor("summary.retime")
 
                 Button {
                     showDeleteConfirmation = true

@@ -14,6 +14,9 @@ import Observation
 /// Subdomains with nothing of their own fall back to the parent domain (docs.foo.com → foo.com).
 /// Results are kept in memory and on disk; misses are remembered for a day so a site without
 /// an icon is not re-fetched on every render.
+// Main-actor bound: icon views on screen call `load` concurrently, and the caches below are
+// plain dictionaries — mutating them from several threads at once crashed the app.
+@MainActor
 @Observable
 final class FaviconProvider {
     static let shared = FaviconProvider()

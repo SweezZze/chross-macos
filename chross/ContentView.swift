@@ -132,6 +132,14 @@ struct ContentView: View {
                 AccessibilityPermission.requestIfNeeded()
             }
             coordinator.syncWidgetSnapshot(isRunning: tracker.isRunning, currentSessionStart: tracker.sessionStart, modelContext: modelContext)
+            #if DEBUG
+            if DemoMode.isActive {
+                await DemoDirector.run(.init(tracker: tracker, coordinator: coordinator, modelContext: modelContext) { screen in
+                    selectedScreen = screen
+                })
+                return
+            }
+            #endif
             workReminder.start(tracker: tracker, coordinator: coordinator, modelContext: modelContext) {
                 openWindow(id: ContentView.windowID)
             }
@@ -266,6 +274,7 @@ struct ContentView: View {
             .animation(.easeOut(duration: 0.12), value: hoveredScreen)
         }
         .buttonStyle(.chross)
+        .demoAnchor("sidebar." + screen.storageKey)
         .onHover { hovering in
             if hovering {
                 hoveredScreen = screen

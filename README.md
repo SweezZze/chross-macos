@@ -20,6 +20,12 @@
 
 Chross est une app de suivi du temps pour freelances et indépendants. Au lieu de compter tout ce qui se passe pendant que le chrono tourne, tu choisis **les apps et les sites qui appartiennent au projet** : seul ce temps-là est compté et facturé. Le reste (réseaux sociaux, messagerie…) est mis de côté en « hors sélection », et les pauses sont détectées automatiquement.
 
+<p align="center">
+  <img src="docs/media/live.gif" alt="Une session en cours : chrono, élément actif, apps et sites suivis" width="820">
+</p>
+
+> Toutes les animations utilisent des données fictives.
+
 ## ✨ Fonctionnalités
 
 ### ⏱ Suivi précis
@@ -28,10 +34,21 @@ Chross est une app de suivi du temps pour freelances et indépendants. Au lieu d
 - **Pause automatique** quand tu t'éloignes du clavier et de la souris (délai réglable).
 - **Modification en direct** — ajoute ou retire une app ou un site pendant que le chrono tourne.
 - **Activité en direct** avec le temps passé par app / site et leurs favicons.
+- Quand tu passes sur un site non suivi (ici youtube.com), Chross le signale et propose de **le suivre en un clic**.
 
 ### 📊 Historique et résumés
 - **Résumé de fin de session** dans une grande fenêtre : temps actif, hors sélection, inactif, chronologie interactive (survol pour le détail) et répartition par app / site.
+
+<p align="center">
+  <img src="docs/media/timeline.gif" alt="Survol de la chronologie d'une session" width="760">
+</p>
+
 - **Correction des horaires à la souris** — recadre le début et la fin avec des poignées, et découpe les périodes à retirer (pause déjeuner oubliée…) directement sur une barre horaire, avec aperçu avant / après.
+
+<p align="center">
+  <img src="docs/media/retime.gif" alt="Correction des horaires : poignées de début et de fin, période retirée" width="760">
+</p>
+
 - **Rapports par projet** et **export CSV** de l'historique.
 
 ### 💶 Facturation
@@ -51,6 +68,13 @@ Une notification te prévient quand tu travailles sur un de tes projets sans avo
 - **Barre des menus** : le chrono reste visible, fenêtre fermée.
 - **Extension Chrome** pour piloter le chrono et ajouter le site courant depuis le navigateur.
 - **Menu latéral personnalisable** par glisser-déposer, **introduction** au premier lancement et réglages complets.
+
+<table>
+  <tr>
+    <td align="center" width="50%"><img src="docs/media/onboarding.gif" alt="Introduction au premier lancement"><br><sub>Introduction : les autorisations, une par une</sub></td>
+    <td align="center" width="50%"><img src="docs/media/favoris-reglages.gif" alt="Favoris et réglages"><br><sub>Favoris et réglages organisés par rubriques</sub></td>
+  </tr>
+</table>
 
 ## 🔐 Confidentialité
 
@@ -108,10 +132,13 @@ chross/
 ├── Billing/       Calcul de facturation, correction des horaires
 ├── Networking/    Serveur local pour l'extension Chrome
 ├── Utilities/     Thème, formatage, favicons, autorisations
-└── Views/         Interface SwiftUI
+├── Views/         Interface SwiftUI
+└── Demo/          Mode démo des versions Debug (données fictives pour les animations)
 ChrossWidget/            Widget macOS (WidgetKit)
 ChrossChromeExtension/   Extension Chrome (Manifest V3)
 Chross-logos/            Logo, icône et symbole (PNG et SVG)
+docs/media/              Animations du README
+scripts/record-demo.sh   Réenregistre ces animations (mode démo, données fictives)
 ```
 
 ## 👥 Auteurs
